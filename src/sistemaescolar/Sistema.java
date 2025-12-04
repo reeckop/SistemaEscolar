@@ -46,10 +46,10 @@ public class Sistema {
         System.out.println("2. Cursos (Agregar / Eliminar / Listar)");
         System.out.println("3. Inscripciones (Inscribir / Ver)");
         System.out.println("4. Calificaciones (Solicitar / Procesar)");
-        System.out.println("5. Acciones (Deshacer última operación)");
+        System.out.println("5. Acciones (Deshacer)");
         System.out.println("6. Reportes (Promedios / Roles)");
         System.out.println("7. Salir");
-        System.out.print("Seleccione una opción: ");
+        System.out.print("Ingrese la opcion: ");
     }
 
     private static void ejecutarOpcion(int opcion) {
@@ -60,31 +60,31 @@ public class Sistema {
             case 4: menuCalificaciones(); break;
             case 5: deshacerUltimaAccion(); break;
             case 6: menuReportes(); break;
-            case 7: System.out.println("Cerrando el sistema..."); break;
-            default: System.out.println(">> Opción no válida.");
+            case 7: break;
+            default: System.out.println("Ingrese una opcion valida!!!");
         }
     }
 
     private static void menuEstudiantes() {
-        System.out.println("\n--- GESTIÓN DE ESTUDIANTES ---");
+        System.out.println("\n--- Menu Estudiantes ---");
         System.out.println("1. Registrar estudiante");
         System.out.println("2. Buscar estudiante");
-        System.out.print("Opción: ");
+        System.out.print("Opcion: ");
         String op = scanner.nextLine();
 
         if (op.equals("1")) {
-            System.out.print("Matrícula: "); String mat = scanner.nextLine();
+            System.out.print("Matricula: "); String mat = scanner.nextLine();
             
             // Verificamos si ya existe antes de pedir el resto de datos
             if (pEstudiantes.buscarEstudiante(mat) != null) {
-                System.out.println(">> Error: Ya existe un estudiante con esa matrícula.");
+                System.out.println("Error: Ya existe un estudiante con esta matricula.");
                 return;
             }
 
             System.out.print("Nombre Completo: "); String nom = scanner.nextLine();
-            System.out.print("Teléfono: "); String tel = scanner.nextLine();
+            System.out.print("Telefono: "); String tel = scanner.nextLine();
             System.out.print("Correo: "); String mail = scanner.nextLine();
-            System.out.print("Dirección completa: "); String dir = scanner.nextLine();
+            System.out.print("Direccion completa: "); String dir = scanner.nextLine();
 
             Estudiante nuevo = new Estudiante(mat, nom, tel, mail, dir);
             pEstudiantes.agregarEstudiante(nuevo);
@@ -105,7 +105,7 @@ public class Sistema {
     }
 
     private static void menuCursos() {
-        System.out.println("\n--- GESTIÓN DE CURSOS ---");
+        System.out.println("\n--- GESTION DE CURSOS ---");
         System.out.println("1. Agregar curso");
         System.out.println("2. Eliminar curso");
         System.out.println("3. Listar cursos");
@@ -119,7 +119,7 @@ public class Sistema {
 
             Curso nuevo = new Curso(clave, nom, cap);
             pCursos.agregarCurso(nuevo);
-            System.out.println(">> Curso agregado.");
+            System.out.println("Curso agregado!!!");
 
         } else if (op.equals("2")) {
             System.out.print("Clave del curso a eliminar: "); String clave = scanner.nextLine();
