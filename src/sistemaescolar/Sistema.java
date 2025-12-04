@@ -27,8 +27,7 @@ public class Sistema {
     }
 
 
-    public String registrarEstudiante(String mat, String nom, String tel, String email, 
-                                      String calle, String num, String col, String cd) {
+    public String registrarEstudiante(String mat, String nom, String tel, String email, String calle, String num, String col, String cd) {
         if (pEstudiantes.buscarEstudiante(mat) != null) {
             return "Error: Ya existe un estudiante con la matrícula " + mat;
         }
@@ -36,7 +35,7 @@ public class Sistema {
         Estudiante e = new Estudiante(mat, nom, tel, email, direccionCompleta);
         pEstudiantes.agregarEstudiante(e);
         
-        // Registrar acción para Deshacer
+        // Registra la accion para deshacerla
         pAcciones.registrarAccion(new Accion(Accion.Tipo.REGISTRO_ESTUDIANTE, e, null));
         return "Estudiante registrado exitosamente.";
     }
@@ -89,7 +88,6 @@ public class Sistema {
     public String inscribirEstudiante(String matricula, String claveCurso) {
         try {
             String resultado = cInscripciones.inscribir(matricula, claveCurso);
-            // Si fue exitoso, guardamos acción
             if (resultado.contains("éxito") || resultado.contains("espera")) {
                 Accion a = new Accion(Accion.Tipo.INSCRIPCION_CURSO, matricula, claveCurso);
                 pAcciones.registrarAccion(a);
@@ -160,6 +158,6 @@ public class Sistema {
         }
     }
     
-    // Getters de persistencia por si la GUI necesita algo muy específico
+    // Getters de persistencia por si la GUI necesita algo
     public PersistenciaCursos getPCursos() { return pCursos; }
 }

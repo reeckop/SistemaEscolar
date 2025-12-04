@@ -15,7 +15,7 @@ public class SistemaEscolar {
     private static BST<Estudiante> bstEstudiantes = new BST<>();
     private static Diccionario<String, Curso> diccionarioCursos = new Diccionario<>(20);
     private static Cola<Accion> colaSolicitudes = new Cola<>();
-    private static Pila<Accion> pilaAcciones = new Pila<>(); // [Requerimiento PDF 9] Pila Deshacer
+    private static Pila<Accion> pilaAcciones = new Pila<>();
     
     private static Scanner scanner = new Scanner(System.in);
 
@@ -156,7 +156,7 @@ public class SistemaEscolar {
             curso.agregarInscrito(est);
             System.out.println("Proceso de inscripción realizado.");
             
-            // Guardar acción para deshacer
+            // Guarda la accion para deshacer
             pilaAcciones.push(new Accion(Accion.Tipo.INSCRIPCION_CURSO, est, curso));
 
         } else if (op.equals("3.2")) {
@@ -194,7 +194,6 @@ public class SistemaEscolar {
                 System.out.print("Calificación a agregar: ");
                 double calif = Double.parseDouble(scanner.nextLine());
                 
-                // Creamos una acción pero NO la ejecutamos aun, va a la cola
                 Accion solicitud = new Accion(Accion.Tipo.CALIFICACION, est, calif);
                 colaSolicitudes.enqueue(solicitud);
                 System.out.println("Solicitud encolada.");
@@ -299,7 +298,7 @@ public class SistemaEscolar {
         }
     }
 
-    // Clase auxiliar para manejar el ordenamiento por promedio en el AVL
+    // Maneja el ordenamiento por promedio en el AVL
     static class ParPromedio implements Comparable<ParPromedio> {
         Estudiante estudiante;
         double promedio;
@@ -313,7 +312,7 @@ public class SistemaEscolar {
         public int compareTo(ParPromedio o) {
             if (this.promedio < o.promedio) return -1;
             if (this.promedio > o.promedio) return 1;
-            // Si promedios son iguales, desempatar por matrícula para no perder datos en el AVL
+            // Si promedios son iguales, desempata por matrucula
             return this.estudiante.compareTo(o.estudiante);
         }
 

@@ -21,7 +21,6 @@ public class PersistenciaCalificaciones {
         if (cola.isEmpty()) return null;
         Accion a = cola.dequeue();
         
-        // Aplicar la calificación aquí mismo antes de devolver la acción
         entidades.Estudiante e = (entidades.Estudiante) a.getObjeto();
         double cal = (double) a.getInfoAdicional();
         e.agregarCalificacion(cal);

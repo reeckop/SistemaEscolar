@@ -42,10 +42,8 @@ public class ControlInscripciones {
         Curso c = pCursos.buscarCurso(claveCurso);
         Estudiante e = pEstudiantes.buscarEstudiante(matricula);
         if (c != null && e != null) {
-            // Intentar remover de inscritos
             boolean borrado = c.getInscritos().remove(e);
             if (!borrado) {
-                // Si no estaba en inscritos, intentar remover de espera
                 c.getListaEspera().remove(e);
             }
         }
@@ -68,11 +66,8 @@ public class ControlInscripciones {
         Curso c = pCursos.buscarCurso(claveCurso);
         if (c != null) {
             ListaDobleCircular<Estudiante> espera = c.getListaEspera();
-            // Necesitamos un método en ListaDobleCircular para obtener elementos sin imprimir
-            // Asumiendo que agregas un método 'get(i)' o iteras manualmente
-            // Aquí usamos una simulación, asumiendo que modificas ListaDobleCircular para devolver lista
+
             ListaDobleCircular<Estudiante> temp = espera.recorrerN(n); 
-            // Tu clase actual imprime en recorrerN, cámbiala para retornar lista.
         }
         return lista;
     }
