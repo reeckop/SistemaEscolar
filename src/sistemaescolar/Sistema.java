@@ -119,7 +119,6 @@ public class Sistema {
         Accion a = pCalificaciones.procesarSiguiente();
         if (a == null) return "No hay solicitudes pendientes.";
         
-        // Al procesar, guardamos en el historial para deshacer
         pAcciones.registrarAccion(a); 
         Estudiante e = (Estudiante) a.getObjeto();
         return "Calificación procesada para: " + e.getNombreCompleto();
@@ -141,13 +140,11 @@ public class Sistema {
                 return "Deshecho: Calificación de " + est.getMatricula();
 
             case INSCRIPCION_CURSO:
-                // Lógica especial: verificar si era creación de curso o inscripción
                 if (a.getInfoAdicional() != null && a.getInfoAdicional().equals("CREACION_CURSO")) {
                     Curso c = (Curso) a.getObjeto();
                     pCursos.eliminarCurso(c.getClave());
                     return "Deshecho: Creación de curso " + c.getClave();
                 } else {
-                    // Era inscripción de alumno
                     String mat = (String) a.getObjeto();
                     String clave = (String) a.getInfoAdicional();
                     cInscripciones.cancelarInscripcion(mat, clave);
