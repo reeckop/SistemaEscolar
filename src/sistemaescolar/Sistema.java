@@ -75,7 +75,6 @@ public class Sistema {
         if (op.equals("1")) {
             System.out.print("Matricula: "); String mat = scanner.nextLine();
             
-            // Verificamos si ya existe antes de pedir el resto de datos
             if (pEstudiantes.buscarEstudiante(mat) != null) {
                 System.out.println("Error: Ya existe un estudiante con esta matricula.");
                 return;
