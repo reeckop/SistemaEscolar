@@ -39,8 +39,8 @@ public class Sistema {
     }
 
     private static void mostrarMenu() {
-        System.out.println("\n========================================");
-        System.out.println("      SISTEMA ESCOLAR ITSON - MENÚ      ");
+        System.out.println("========================================");
+        System.out.println("        SISTEMA ESCOLAR - MENU          ");
         System.out.println("========================================");
         System.out.println("1. Estudiantes (Registrar / Buscar)");
         System.out.println("2. Cursos (Agregar / Eliminar / Listar)");
