@@ -4,9 +4,12 @@
  */
 package estructuras;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
- * @author valeria
+ * @author valeria & Ricardo
  */
 public class AVL<T extends Comparable<T>> {
 
@@ -125,5 +128,20 @@ public class AVL<T extends Comparable<T>> {
 
     public boolean isEmpty() {
         return raiz == null;
+    }
+    
+    public List<T> obtenerListaInOrder() {
+    List<T> lista = new ArrayList<>();
+    recolectarInOrder(raiz, lista);
+    return lista;
+}
+
+    // Método recursivo privado
+    private void recolectarInOrder(Nodo<T> nodo, List<T> lista) {
+        if (nodo != null) {
+            recolectarInOrder(nodo.izquierda, lista);
+            lista.add(nodo.dato);
+            recolectarInOrder(nodo.derecha, lista);
+        }
     }
 }

@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 /**
  *
- * @author valeria
+ * @author valeria & Ricardo
  */
 public class Accion {
 
@@ -18,17 +14,15 @@ public class Accion {
     }
 
     private Tipo tipo;
-    private Object objeto; // puede ser Estudiante, Curso, o cualquier dato necesario
-    private Object infoAdicional; // opcional, por ejemplo calificación o curso
+    private Object objeto;
+    private Object infoAdicional;
 
-    // Constructor
     public Accion(Tipo tipo, Object objeto, Object infoAdicional) {
         this.tipo = tipo;
         this.objeto = objeto;
         this.infoAdicional = infoAdicional;
     }
 
-    // Getters
     public Tipo getTipo() {
         return tipo;
     }

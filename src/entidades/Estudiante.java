@@ -1,29 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
+
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
- * @author valeria
+ * @author valeria & Ricardo
  */
-
-public class Estudiante {
+public class Estudiante implements Comparable<Estudiante> {
 
     private String matricula;
     private String nombreCompleto;
-    
-    // Datos de contacto
     private String telefono;
     private String correo;
-    private String direccion; // Puedes unificar calle, número, colonia, ciudad
-    
-    // Lista dinámica de calificaciones
+    private String direccion; 
     private List<Double> calificaciones;
 
-    // Constructor
     public Estudiante(String matricula, String nombreCompleto, String telefono, String correo, String direccion) {
         this.matricula = matricula;
         this.nombreCompleto = nombreCompleto;
@@ -33,55 +25,39 @@ public class Estudiante {
         this.calificaciones = new ArrayList<>();
     }
 
-    // Getters y setters
-    public String getMatricula() {
-        return matricula;
-    }
+    public String getMatricula() { return matricula; }
+    public String getNombreCompleto() { return nombreCompleto; }
+    public List<Double> getCalificaciones() { return calificaciones; }
 
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public List<Double> getCalificaciones() {
-        return calificaciones;
-    }
-
-    // Agregar calificación
     public void agregarCalificacion(double calificacion) {
         calificaciones.add(calificacion);
     }
+    
+    public void eliminarUltimaCalificacion() {
+        if (!calificaciones.isEmpty()) {
+            calificaciones.remove(calificaciones.size() - 1);
+        }
+    }
 
-    // Calcular promedio recursivamente
     public double promedio() {
-        return promedioRecursivo(calificaciones, 0);
+        if (calificaciones.isEmpty()) return 0.0;
+        return promedioRecursivo(calificaciones, 0) / calificaciones.size();
     }
 
     private double promedioRecursivo(List<Double> lista, int index) {
-        if (lista.isEmpty()) return 0;
         if (index == lista.size()) return 0;
-        return (lista.get(index) + promedioRecursivo(lista, index + 1));
-    }
-
-    public double promedioFinal() {
-        if (calificaciones.isEmpty()) return 0;
-        return promedio() / calificaciones.size();
+        return lista.get(index) + promedioRecursivo(lista, index + 1);
     }
 
     @Override
     public String toString() {
-        return matricula + " - " + nombreCompleto + " | Promedio: " + promedioFinal();
+        return "Matricula: " + matricula + " | Nombre: " + nombreCompleto + 
+               " | Prom: " + String.format("%.2f", promedio()) + 
+               " | Califs: " + calificaciones;
+    }
+
+    @Override
+    public int compareTo(Estudiante o) {
+        return this.matricula.compareTo(o.matricula);
     }
 }
-

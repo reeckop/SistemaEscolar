@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import estructuras.ListaDobleCircular;
@@ -10,7 +6,7 @@ import estructuras.ListaEnlazadaSimple;
 
 /**
  *
- * @author valeria
+ * @author valeria & Ricardo
  */
 public class Curso {
 
@@ -56,6 +52,10 @@ public class Curso {
 
     public ListaEnlazadaCircular<Estudiante> getRoles() {
         return roles;
+    }
+    
+    public int getCapacidadMax() {
+        return capacidadMax;
     }
 
     // Métodos para inscripciones
