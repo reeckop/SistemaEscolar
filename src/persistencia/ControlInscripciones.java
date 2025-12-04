@@ -23,11 +23,16 @@ public class ControlInscripciones {
         Estudiante e = pEstudiantes.buscarEstudiante(matricula);
         Curso c = pCursos.buscarCurso(claveCurso);
 
-        if (e == null) return "Estudiante no encontrado.";
-        if (c == null) return "Curso no encontrado.";
+        if (e == null) {
+            return "Estudiante no encontrado.";
+        }
+        if (c == null) {
+            return "Curso no encontrado.";
+        }
 
-        // Verificar si ya está inscrito
-        if (c.getInscritos().contains(e)) return "El estudiante ya está inscrito.";
+        if (c.getInscritos().contains(e)) {
+            return "El estudiante ya está inscrito.";
+        }
 
         if (c.getInscritos().size() < c.getCapacidadMax()) {
             c.agregarInscrito(e);

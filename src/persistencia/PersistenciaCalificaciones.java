@@ -1,30 +1,38 @@
 package persistencia;
-import estructuras.Cola;
+
 import entidades.Accion;
+import entidades.Estudiante;
+import estructuras.Cola;
 
 /**
  *
  * @author valeria & Ricardo
  */
 public class PersistenciaCalificaciones {
-    private Cola<Accion> cola;
+    private Cola<Accion> colaSolicitudes;
 
     public PersistenciaCalificaciones() {
-        this.cola = new Cola<>();
+        this.colaSolicitudes = new Cola<>();
     }
 
-    public void enviarSolicitud(Accion a) {
-        cola.enqueue(a);
+    public void enviarSolicitudCalificacion(Accion a) {
+        colaSolicitudes.enqueue(a);
     }
 
-    public Accion procesarSiguiente() {
-        if (cola.isEmpty()) return null;
-        Accion a = cola.dequeue();
-        
-        entidades.Estudiante e = (entidades.Estudiante) a.getObjeto();
-        double cal = (double) a.getInfoAdicional();
-        e.agregarCalificacion(cal);
-        
-        return a;
+    // Regresa la accionn procesada para que el sistema la registre en el historial
+    public Accion procesarSiguienteSolicitud() {
+        if (!colaSolicitudes.isEmpty()) {
+            Accion solicitud = colaSolicitudes.dequeue();
+            // Aplica la calificación
+            Estudiante est = (Estudiante) solicitud.getObjeto();
+            Double calif = (Double) solicitud.getInfoAdicional();
+            est.agregarCalificacion(calif);
+            return solicitud;
+        }
+        return null;
+    }
+    
+    public boolean haySolicitudes() {
+        return !colaSolicitudes.isEmpty();
     }
 }

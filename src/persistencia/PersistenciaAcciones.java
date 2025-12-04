@@ -1,24 +1,31 @@
 package persistencia;
-import estructuras.Pila;
+
 import entidades.Accion;
+import estructuras.Pila;
 
 /**
  *
  * @author valeria & Ricardo
  */
 public class PersistenciaAcciones {
-    private Pila<Accion> pila;
+    private Pila<Accion> pilaAcciones;
 
     public PersistenciaAcciones() {
-        this.pila = new Pila<>();
+        this.pilaAcciones = new Pila<>();
     }
 
     public void registrarAccion(Accion a) {
-        pila.push(a);
+        pilaAcciones.push(a);
     }
 
-    public Accion popAccion() {
-        if (pila.isEmpty()) return null;
-        return pila.pop();
+    public Accion deshacerUltimaAccion() {
+        if (!pilaAcciones.isEmpty()) {
+            return pilaAcciones.pop();
+        }
+        return null;
+    }
+    
+    public boolean isEmpty() {
+        return pilaAcciones.isEmpty();
     }
 }
