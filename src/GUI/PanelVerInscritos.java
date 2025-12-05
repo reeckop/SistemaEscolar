@@ -4,6 +4,10 @@ import persistencia.PersistenciaInscripciones;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+/*
+*
+* @author Ricardo & valeria
+*/
 public class PanelVerInscritos extends javax.swing.JPanel {
 
     private PersistenciaInscripciones pInscripciones;

@@ -7,6 +7,10 @@ import estructuras.AVL;
 import persistencia.PersistenciaEstudiantes;
 import java.util.List;
 
+/*
+*
+* @author Ricardo & valeria
+*/
 public class PanelReportePromedios extends javax.swing.JPanel {
 
         private PersistenciaEstudiantes pEstudiantes;

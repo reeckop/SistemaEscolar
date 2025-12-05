@@ -76,7 +76,7 @@ public class BST<T extends Comparable<T>> {
         return root;
     }
     
-    // Método auxiliar para obtener mínimo
+    // Metodo auxiliar para obtener mínimo
     private T minValue(Nodo<T> root) {
         T minv = root.dato;
         while (root.izquierda != null) {

@@ -5,6 +5,10 @@ import persistencia.PersistenciaCursos;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+/*
+*
+* @author Ricardo & valeria
+*/
 public class PanelListarCursos extends javax.swing.JPanel {
 
     private final PersistenciaCursos pCursos;

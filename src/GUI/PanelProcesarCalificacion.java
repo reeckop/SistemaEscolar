@@ -6,6 +6,10 @@ import persistencia.PersistenciaAcciones;
 import persistencia.PersistenciaCalificaciones;
 import javax.swing.JOptionPane;
 
+/*
+*
+* @author Ricardo & valeria
+*/
 public class PanelProcesarCalificacion extends javax.swing.JPanel {
 
     private final PersistenciaCalificaciones pCalificaciones;
@@ -19,9 +23,8 @@ public class PanelProcesarCalificacion extends javax.swing.JPanel {
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {
         if (!pCalificaciones.haySolicitudes()) {
-            lblEstado.setText("Estado: La cola de solicitudes está vacía.");
-            JOptionPane.showMessageDialog(this, "No hay solicitudes pendientes.", "Información",
-                    JOptionPane.INFORMATION_MESSAGE);
+            lblEstado.setText("Estado: La cola esta vacia.");
+            JOptionPane.showMessageDialog(this, "No hay solicitudes pendientes.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -50,15 +53,13 @@ public class PanelProcesarCalificacion extends javax.swing.JPanel {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18));
         lblTitulo.setText("Procesar Calificaciones (Cola)");
 
-        lblInfo.setText("Haga clic para procesar la siguiente solicitud en la cola (FIFO).");
-
         btnProcesar.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btnProcesar.setText("Procesar Siguiente");
         btnProcesar.addActionListener(evt -> btnProcesarActionPerformed(evt));
 
         lblEstado.setFont(new java.awt.Font("Segoe UI", 2, 14));
         lblEstado.setForeground(new java.awt.Color(0, 102, 204));
-        lblEstado.setText("Estado: Esperando acción...");
+        lblEstado.setText("Estado: Esperando...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -18,58 +18,50 @@ public class PanelRegistrarEstudiante extends javax.swing.JPanel {
 
     /**
      * Constructor que recibe las instancias de persistencia.
-     * 
-     * @param pEst Controlador de estudiantes (BST)
-     * @param pAcc Controlador de acciones (Pila para deshacer)
+     *
      */
     public PanelRegistrarEstudiante(PersistenciaEstudiantes pEst, PersistenciaAcciones pAcc) {
         this.pEstudiantes = pEst;
         this.pAcciones = pAcc;
-        initComponents(); // Inicia los componentes gráficos
+        initComponents();
     }
 
     /**
-     * Lógica principal del botón "Registrar".
-     * Valida datos, verifica duplicados, guarda en BST y registra la acción.
+     * Logica principal del boton Registrar.
+     * Valida datos, verifica duplicados, guarda en BST y registra la accion.
      */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {
-        // 1. Recolectar datos de los campos de texto
+        // Recolectaa el texto
         String matricula = txtMatricula.getText().trim();
         String nombre = txtNombre.getText().trim();
         String telefono = txtTelefono.getText().trim();
         String correo = txtCorreo.getText().trim();
         String direccion = txtDireccion.getText().trim();
 
-        // 2. Validaciones básicas (Campos vacíos)
+        // Validaciones basicas (Campos vacíos)
         if (matricula.isEmpty() || nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "La matrícula y el nombre son obligatorios.",
-                    "Error de Validación",
-                    JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La matrícula y el nombre son obligatorios.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            // 3. Verificar si ya existe en el BST
+            // Verifica si existe en el BST
             if (pEstudiantes.buscarEstudiante(matricula) != null) {
-                JOptionPane.showMessageDialog(this,
-                        "Error: Ya existe un estudiante con la matrícula " + matricula,
-                        "Matrícula Duplicada",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error: Ya existe un estudiante con la matrícula " + matricula, "Matrícula Duplicada", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // 4. Crear el objeto Estudiante
+            // Crea el Estudiante
             Estudiante nuevoEstudiante = new Estudiante(matricula, nombre, telefono, correo, direccion);
 
-            // 5. Guardar en el BST (Persistencia)
+            // Guardaren el BST (Persistencia)
             pEstudiantes.agregarEstudiante(nuevoEstudiante);
 
-            // 6. Registrar la acción en la Pila (Para poder "Deshacer" después)
+            // Registra la accion en la Pila
             Accion accionRegistro = new Accion(Accion.Tipo.REGISTRO_ESTUDIANTE, nuevoEstudiante, null);
             pAcciones.registrarAccion(accionRegistro);
 
-            // 7. Feedback al usuario y limpieza
+            // Avisa al usuario
             JOptionPane.showMessageDialog(this, "Estudiante registrado exitosamente.");
             limpiarCampos();
 
@@ -82,7 +74,7 @@ public class PanelRegistrarEstudiante extends javax.swing.JPanel {
         limpiarCampos();
     }
 
-    // Método auxiliar para borrar el texto de los campos
+    // Metodo para limpiar el texto de los campos
     private void limpiarCampos() {
         txtMatricula.setText("");
         txtNombre.setText("");
@@ -223,7 +215,6 @@ public class PanelRegistrarEstudiante extends javax.swing.JPanel {
                                 .addContainerGap(80, Short.MAX_VALUE)));
     }// </editor-fold>
 
-    // Variables declaration (Componentes de la GUI)
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel1;

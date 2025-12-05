@@ -73,8 +73,8 @@ public class Estudiante implements Comparable<Estudiante> {
             return true;
         if (obj == null || getClass() != obj.getClass())
             return false;
-        Estudiante other = (Estudiante) obj;
-        return Objects.equals(matricula, other.matricula);
+        Estudiante otro = (Estudiante) obj;
+        return Objects.equals(matricula, otro.matricula);
     }
 
     @Override

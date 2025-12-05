@@ -21,9 +21,8 @@ public class SistemaConsola {
     private static final PersistenciaCalificaciones pCalificaciones = new PersistenciaCalificaciones();
     private static final PersistenciaAcciones pAcciones = new PersistenciaAcciones();
 
-    // Inyectamos las dependencias necesarias en Inscripciones
-    private static final PersistenciaInscripciones pInscripciones = new PersistenciaInscripciones(pCursos,
-            pEstudiantes);
+    // Dependencias necesarias en Inscripciones
+    private static final PersistenciaInscripciones pInscripciones = new PersistenciaInscripciones(pCursos, pEstudiantes);
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -33,7 +32,7 @@ public class SistemaConsola {
         mostrarMenuPrincipal();
         System.out.print("Ingrese la opcion: ");
         int opcion = scanner.nextInt();
-        scanner.nextLine(); // Consumir salto de linea
+        scanner.nextLine();
 
         while (opcion != 7) {
             ejecutarOpcion(opcion);
@@ -44,7 +43,7 @@ public class SistemaConsola {
             mostrarMenuPrincipal();
             System.out.print("Ingrese la opcion: ");
             opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir salto de linea
+            scanner.nextLine();
         }
     }
 
@@ -160,7 +159,7 @@ public class SistemaConsola {
 
     // --- 3. INSCRIPCIONES (Listas Enlazadas / Dobles) ---
     private static void menuInscripciones() {
-        System.out.println("\n--- INSCRIPCIONES ---");
+        System.out.println("\n      INSCRIPCIONES");
         System.out.println("1. Inscribir estudiante");
         System.out.println("2. Ver inscritos de un curso");
         System.out.println("3. Ver lista de espera (Primeros N)");
@@ -172,11 +171,11 @@ public class SistemaConsola {
             String mat = leerTexto("Matricula Estudiante: ");
             String clave = leerTexto("Clave Curso: ");
 
-            // Delegamos toda la validacion a PersistenciaInscripciones
+            // Validacion a PersistenciaInscripciones
             String resultado = pInscripciones.inscribir(mat, clave);
-            System.out.println(">> " + resultado);
+            System.out.println("Resultado: " + resultado);
 
-            // Si fue exitoso o espera, registramos accion para deshacer
+            // Si fue exitoso o espera, se registra accion para deshacer
             if (resultado.contains("exitosa") || resultado.contains("Espera")) {
                 Estudiante e = pEstudiantes.buscarEstudiante(mat);
                 Curso c = pCursos.buscarCurso(clave);
@@ -202,7 +201,7 @@ public class SistemaConsola {
         }
     }
 
-    // --- 4. CALIFICACIONES (Cola) ---
+    // CALIFICACIONES (Cola)
     private static void menuCalificaciones() {
         System.out.println("\nCALIFICACIONES");
         System.out.println("1. Enviar solicitud");
@@ -244,7 +243,7 @@ public class SistemaConsola {
         }
     }
 
-    // --- 5. DESHACER (Pila) ---
+    // DESHACER (Pila)
     private static void deshacerUltimaAccion() {
         Accion ultima = pAcciones.deshacerUltimaAccion();
         if (ultima == null) {
@@ -274,7 +273,7 @@ public class SistemaConsola {
         }
     }
 
-    // --- 6. REPORTES (AVL y Roles) ---
+    // REPORTES (AVL y Roles)
     private static void menuReportes() {
         System.out.println("\n      REPORTES");
         System.out.println("1. Listar estudiantes por Promedio");
@@ -296,7 +295,7 @@ public class SistemaConsola {
                 avl.insert(new ParPromedio(e));
             }
             System.out.println("--- Ordenado por Promedio (AVL In-Order) ---");
-            avl.inOrder(); // Imprime en consola
+            avl.inOrder();
 
         } else if (op == 2) {
             String clave = leerTexto("Clave del curso: ");
@@ -304,7 +303,6 @@ public class SistemaConsola {
         }
     }
 
-    // Clase auxiliar wrapper para ordenar en el AVL
     public static class ParPromedio implements Comparable<ParPromedio> {
         Estudiante estudiante;
         double promedio;

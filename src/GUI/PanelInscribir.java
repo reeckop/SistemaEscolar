@@ -9,8 +9,11 @@ import persistencia.PersistenciaEstudiantes;
 import persistencia.PersistenciaInscripciones;
 import javax.swing.JOptionPane;
 
+/*
+*
+* @author Ricardo
+*/
 public class PanelInscribir extends javax.swing.JPanel {
-
     private final PersistenciaInscripciones pInscripciones;
     private final PersistenciaAcciones pAcciones;
     private final PersistenciaEstudiantes pEstudiantes;
@@ -25,6 +28,7 @@ public class PanelInscribir extends javax.swing.JPanel {
         initComponents();
     }
 
+    // Obtiene la matricula y clave, si ambas estan vacias da error, si no las inscribe y luego registra la accion
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {
         String matricula = txtMatricula.getText().trim();
         String clave = txtClave.getText().trim();
@@ -49,7 +53,8 @@ public class PanelInscribir extends javax.swing.JPanel {
 
         limpiarCampos();
     }
-
+    
+    // MEtodo par alimpiar 
     private void limpiarCampos() {
         txtMatricula.setText("");
         txtClave.setText("");
@@ -68,7 +73,7 @@ public class PanelInscribir extends javax.swing.JPanel {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18));
         lblTitulo.setText("Inscribir Estudiante a Curso");
 
-        jLabel1.setText("Matrícula Estudiante:");
+        jLabel1.setText("Matricula Estudiante:");
         jLabel2.setText("Clave del Curso:");
 
         btnInscribir.setText("Inscribir");

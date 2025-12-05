@@ -4,6 +4,11 @@ import entidades.Curso;
 import persistencia.PersistenciaCursos;
 import javax.swing.JOptionPane;
 
+
+/**
+ *
+ * @author Ricardo
+ */
 public class PanelAgregarCurso extends javax.swing.JPanel {
 
     private final PersistenciaCursos pCursos;

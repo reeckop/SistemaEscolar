@@ -3,6 +3,10 @@ package GUI;
 import persistencia.PersistenciaInscripciones;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Ricardo
+ */
 public class PanelListaEspera extends javax.swing.JPanel {
 
     private PersistenciaInscripciones pInscripciones;
@@ -17,21 +21,11 @@ public class PanelListaEspera extends javax.swing.JPanel {
         try {
             int n = Integer.parseInt(txtCantidad.getText().trim());
 
-            // Redirigimos la salida estándar para capturar lo que imprime el método
-            // original
-            // Ojo: Esto es un truco rápido porque tu método imprime a consola (System.out)
-            // Para la GUI idealmente modificarías PersistenciaInscripciones para devolver
-            // String,
-            // pero para no tocar tu lógica, mostramos un mensaje indicando que vea la
-            // consola (Output)
-            // O asumimos que solo mostramos confirmación.
-
             pInscripciones.imprimirListaEspera(clave, n);
-            JOptionPane.showMessageDialog(this,
-                    "La lista se ha generado en la Consola (Output) de NetBeans\nsegún la lógica original de ListaDobleCircular.");
+            JOptionPane.showMessageDialog(this,"La lista se ha generado en la Consola.");
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un número válido para N.");
+            JOptionPane.showMessageDialog(this, "Ingrese una cantidad valida:");
         }
     }
 
@@ -45,10 +39,9 @@ public class PanelListaEspera extends javax.swing.JPanel {
         lblNota = new javax.swing.JLabel();
 
         jLabel1.setText("Clave Curso:");
-        jLabel2.setText("Cantidad a mostrar (N):");
+        jLabel2.setText("Cantidad a mostrar:");
         btnVer.setText("Ver Lista de Espera");
         btnVer.addActionListener(evt -> btnVerActionPerformed(evt));
-        lblNota.setText("Nota: Se usará la consola para el recorrido (Lista Doble).");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

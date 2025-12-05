@@ -8,23 +8,29 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
+/*
+*
+* @author Ricardo & valeria
+*/
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    // --- CONTROLADORES E INSTANCIAS ---
+    // CONTROLADORES
     private PersistenciaEstudiantes pEstudiantes = new PersistenciaEstudiantes();
     private PersistenciaCursos pCursos = new PersistenciaCursos();
     private PersistenciaInscripciones pInscripciones = new PersistenciaInscripciones(pCursos, pEstudiantes);
     private PersistenciaCalificaciones pCalificaciones = new PersistenciaCalificaciones();
     private PersistenciaAcciones pAcciones = new PersistenciaAcciones();
 
+    // Llama a los componentes, setea tamaño y titulo asi como tambien establece su localizacion en el medio
     public MenuPrincipal() {
         initComponents();
         setTitle("Sistema Escolar - Proyecto Final");
-        setSize(850, 600);
+        setSize(720, 480);
         this.setLayout(new BorderLayout());
         setLocationRelativeTo(null); // Centrar ventana
     }
 
+    // Metodo para actualizar paneles (Para poder mostrar los demas panales correctamente :))
     private void mostrarPanel(JPanel p) {
         p.setSize(this.getWidth(), this.getHeight());
         p.setLocation(0, 0);
@@ -79,16 +85,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         mostrarPanel(new PanelProcesarCalificacion(pCalificaciones, pAcciones));
     }
 
-    // 5. ACCIONES (DESHACER) - Lógica directa, no requiere panel
+    // 5. ACCIONES
     private void itemDesahacerActionPerformed(java.awt.event.ActionEvent evt) {
         Accion ultima = pAcciones.deshacerUltimaAccion();
         if (ultima == null) {
-            JOptionPane.showMessageDialog(this, "La pila de acciones está vacía.", "Información",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La pila de acciones está vacía.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        String mensaje = "Deshaciendo acción: " + ultima.getTipo();
+        String mensaje = "Deshaciendo accion: " + ultima.getTipo();
         switch (ultima.getTipo()) {
             case REGISTRO_ESTUDIANTE -> {
                 Estudiante e = (Estudiante) ultima.getObjeto();
@@ -120,7 +125,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         mostrarPanel(new PanelRotarRol(pInscripciones));
     }
 
-    // --- CÓDIGO GENERADO (Layout Básico) ---
     @SuppressWarnings("unchecked")
     private void initComponents() {
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -196,7 +200,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuCalificaciones);
 
         menuAcciones.setText("Acciones");
-        itemDesahacer.setText("Deshacer última acción");
+        itemDesahacer.setText("Deshacer ultima accion");
         itemDesahacer.addActionListener(evt -> itemDesahacerActionPerformed(evt));
         menuAcciones.add(itemDesahacer);
         jMenuBar1.add(menuAcciones);

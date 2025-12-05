@@ -3,6 +3,10 @@ package GUI;
 import persistencia.PersistenciaInscripciones;
 import javax.swing.JOptionPane;
 
+/*
+*
+* @author Ricardo & valeria
+*/
 public class PanelRotarRol extends javax.swing.JPanel {
 
     private PersistenciaInscripciones pInscripciones;

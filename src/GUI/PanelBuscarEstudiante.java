@@ -17,6 +17,7 @@ public class PanelBuscarEstudiante extends javax.swing.JPanel {
         initComponents();
     }
 
+    // Obtiene la matricula y despues manda a llamar al metodo para buscarla
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         String matricula = txtMatricula.getText().trim();
 
@@ -29,11 +30,11 @@ public class PanelBuscarEstudiante extends javax.swing.JPanel {
 
         if (e != null) {
             txtResultado.setText("");
-            txtResultado.append("--- ESTUDIANTE ENCONTRADO ---\n");
+            txtResultado.append("ESTUDIANTE ENCONTRADO\n");
             txtResultado.append("Matrícula: " + e.getMatricula() + "\n");
             txtResultado.append("Nombre: " + e.getNombreCompleto() + "\n");
-            txtResultado.append("Teléfono: " + e.getTelefono() + "\n"); // Asumiendo que existe el getter
-            txtResultado.append("Correo: " + e.getCorreo() + "\n"); // Asumiendo que existe el getter
+            txtResultado.append("Teléfono: " + e.getTelefono() + "\n"); 
+            txtResultado.append("Correo: " + e.getCorreo() + "\n");
             txtResultado.append("Promedio: " + String.format("%.2f", e.promedio()) + "\n");
         } else {
             txtResultado.setText("");
