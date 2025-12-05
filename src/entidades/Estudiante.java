@@ -13,7 +13,7 @@ public class Estudiante implements Comparable<Estudiante> {
     private String nombreCompleto;
     private String telefono;
     private String correo;
-    private String direccion; 
+    private String direccion;
     private List<Double> calificaciones;
 
     public Estudiante(String matricula, String nombreCompleto, String telefono, String correo, String direccion) {
@@ -26,14 +26,22 @@ public class Estudiante implements Comparable<Estudiante> {
     }
 
     // Getters
-    public String getMatricula() { return matricula; }
-    public String getNombreCompleto() { return nombreCompleto; }
-    public List<Double> getCalificaciones() { return calificaciones; }
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public List<Double> getCalificaciones() {
+        return calificaciones;
+    }
 
     public void agregarCalificacion(double calificacion) {
         calificaciones.add(calificacion);
     }
-    
+
     public void eliminarUltimaCalificacion() {
         if (!calificaciones.isEmpty()) {
             calificaciones.remove(calificaciones.size() - 1);
@@ -41,9 +49,11 @@ public class Estudiante implements Comparable<Estudiante> {
     }
 
     public double promedio() {
-        if (calificaciones.isEmpty()) return 0.0;
+        if (calificaciones.isEmpty())
+            return 0.0;
         double suma = 0;
-        for(Double c : calificaciones) suma += c;
+        for (Double c : calificaciones)
+            suma += c;
         return suma / calificaciones.size();
     }
 
@@ -59,8 +69,10 @@ public class Estudiante implements Comparable<Estudiante> {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
         Estudiante other = (Estudiante) obj;
         return Objects.equals(matricula, other.matricula);
     }
@@ -71,10 +83,10 @@ public class Estudiante implements Comparable<Estudiante> {
     }
 
     public String getTelefono() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return telefono;
     }
 
     public String getCorreo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return correo;
     }
 }

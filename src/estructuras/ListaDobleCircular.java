@@ -35,7 +35,8 @@ public class ListaDobleCircular<T> {
 
     // Eliminar un nodo específico
     public boolean remove(T dato) {
-        if (cabeza == null) return false;
+        if (cabeza == null)
+            return false;
 
         Nodo<T> actual = cabeza;
         boolean encontrado = false;
@@ -48,7 +49,8 @@ public class ListaDobleCircular<T> {
             actual = actual.getSiguiente();
         }
 
-        if (!encontrado) return false;
+        if (!encontrado)
+            return false;
 
         if (tam == 1) {
             cabeza = null;
@@ -68,7 +70,8 @@ public class ListaDobleCircular<T> {
 
     // Recorrer hacia adelante N elementos desde la cabeza
     public void recorrerAdelante(int n) {
-        if (cabeza == null) return;
+        if (cabeza == null)
+            return;
 
         Nodo<T> temp = cabeza;
         for (int i = 0; i < n && i < tam; i++) {
@@ -79,7 +82,8 @@ public class ListaDobleCircular<T> {
 
     // Recorrer hacia atrás N elementos desde la cabeza
     public void recorrerAtras(int n) {
-        if (cabeza == null) return;
+        if (cabeza == null)
+            return;
 
         Nodo<T> temp = cabeza.getAnterior(); // último nodo
         for (int i = 0; i < n && i < tam; i++) {
@@ -87,13 +91,14 @@ public class ListaDobleCircular<T> {
             temp = temp.getAnterior();
         }
     }
-    
+
     public ListaDobleCircular<T> recorrerN(int n) {
         ListaDobleCircular<T> sublista = new ListaDobleCircular<>();
         Nodo<T> temp = cabeza;
         int contador = 0;
 
-        if (temp == null) return sublista;
+        if (temp == null)
+            return sublista;
 
         do {
             sublista.add(temp.getDato());
@@ -104,7 +109,6 @@ public class ListaDobleCircular<T> {
         return sublista;
     }
 
-
     public boolean isEmpty() {
         return tam == 0;
     }
@@ -112,5 +116,17 @@ public class ListaDobleCircular<T> {
     public int size() {
         return tam;
     }
-}
 
+    public java.util.List<T> toList() {
+        java.util.List<T> lista = new java.util.ArrayList<>();
+        if (cabeza == null)
+            return lista;
+
+        Nodo<T> temp = cabeza;
+        do {
+            lista.add(temp.getDato());
+            temp = temp.getSiguiente();
+        } while (temp != cabeza);
+        return lista;
+    }
+}

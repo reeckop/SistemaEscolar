@@ -12,7 +12,7 @@ import java.util.List;
  * Actúa como controlador entre Estudiantes y Cursos.
  */
 public class PersistenciaInscripciones {
-    
+
     private PersistenciaCursos pCursos;
     private PersistenciaEstudiantes pEstudiantes;
 
@@ -24,23 +24,22 @@ public class PersistenciaInscripciones {
     /**
      * Intenta inscribir un estudiante a un curso.
      * Verifica existencia, duplicidad y capacidad.
+     * 
      * @return Mensaje de resultado para mostrar en Consola o GUI.
      */
     public String inscribir(String matricula, String claveCurso) {
         Estudiante e = pEstudiantes.buscarEstudiante(matricula);
         Curso c = pCursos.buscarCurso(claveCurso);
 
-        if (e == null) return "Error: Estudiante no encontrado.";
-        if (c == null) return "Error: Curso no encontrado.";
+        if (e == null)
+            return "Error: Estudiante no encontrado.";
+        if (c == null)
+            return "Error: Curso no encontrado.";
 
         // Verificar si ya está inscrito
         if (c.getInscritos().contains(e)) {
             return "El estudiante ya está inscrito en este curso.";
         }
-        
-        // Verificar si ya está en lista de espera (para no duplicar)
-        // Nota: ListaDobleCircular requiere implementar búsqueda o recorrer manual.
-        // Asumimos que si no está en inscritos, intentamos agregarlo.
 
         if (c.getInscritos().size() < c.getCapacidadMax()) {
             c.agregarInscrito(e);
@@ -59,8 +58,9 @@ public class PersistenciaInscripciones {
     public String cancelarInscripcion(String matricula, String claveCurso) {
         Curso c = pCursos.buscarCurso(claveCurso);
         Estudiante e = pEstudiantes.buscarEstudiante(matricula);
-        
-        if (c == null || e == null) return "Datos inválidos.";
+
+        if (c == null || e == null)
+            return "Datos inválidos.";
 
         boolean borradoDeInscritos = c.getInscritos().remove(e);
         if (borradoDeInscritos) {
@@ -79,10 +79,10 @@ public class PersistenciaInscripciones {
         Curso c = pCursos.buscarCurso(claveCurso);
         if (c != null) {
             ListaEnlazadaSimple<Estudiante> lista = c.getInscritos();
-            // Recorremos usando size() y get() ya que es genérica
             for (int i = 0; i < lista.size(); i++) {
                 Estudiante e = lista.get(i);
-                if (e != null) resultado.add(e.toString());
+                if (e != null)
+                    resultado.add(e.toString());
             }
         }
         return resultado;
@@ -92,52 +92,37 @@ public class PersistenciaInscripciones {
         List<String> resultado = new ArrayList<>();
         Curso c = pCursos.buscarCurso(claveCurso);
         if (c != null) {
-            // Obtenemos sublista de los primeros N
             ListaDobleCircular<Estudiante> sublista = c.recorrerEsperaN(n);
-             // Como ListaDobleCircular no es iterable nativamente en tu implementación, usamos un bucle temporal
-             // Sin embargo, para efectos prácticos de visualización, extraemos nodos:
-             // (Asumiendo que ListaDobleCircular tiene método para sacar datos o iterar)
-             // Dado que tu implementación tiene 'recorrerN' que devuelve otra lista, 
-             // necesitamos una forma de extraer los datos de esa sublista sin borrarla.
-             // Haremos un hack seguro: iterar la sublista temporal hasta su tamaño.
-             
-             // NOTA: Tu ListaDobleCircular actual no tiene método get(i), 
-             // pero el PDF pide mostrar N. Usaremos la lógica interna de recorrer.
-             // Para devolver una List<String> a la GUI/Consola:
-             
-             // Si no tienes un iterador público, modificaremos Curso o usaremos la sublista.
-             // Aquí simularemos la extracción:
-             // Como no puedo modificar ListaDobleCircular fácilmente sin iterador, 
-             // usaremos la sublista devuelta por recorrerN.
-             
-             // *Advertencia*: Si ListaDobleCircular no tiene get(i), esto es difícil.
-             // Asumiré que podemos modificar ListaDobleCircular o que usamos un método auxiliar.
-             // Por simplicidad, devolveremos una descripción genérica si no hay iterador.
+            List<Estudiante> estudiantes = sublista.toList();
+            for (Estudiante e : estudiantes) {
+                resultado.add(e.toString());
+            }
         }
-        return resultado; // Retorna vacío si no se implementa iterador, ver nota abajo.
+        return resultado;
     }
-    
-    // Método auxiliar para imprimir directamente (cumple requerimiento de consola PDF punto 6)
+
     public void imprimirListaEspera(String claveCurso, int n) {
-         Curso c = pCursos.buscarCurso(claveCurso);
-         if (c != null) {
-             System.out.println(">> Primeros " + n + " en lista de espera:");
-             c.getListaEspera().recorrerAdelante(n); // Este método ya imprime en consola en tu clase original
-         }
+        Curso c = pCursos.buscarCurso(claveCurso);
+        if (c != null) {
+            System.out.println(">> Primeros " + n + " en lista de espera:");
+            c.getListaEspera().recorrerAdelante(n);
+        }
     }
 
     public String rotarRol(String claveCurso) {
         Curso c = pCursos.buscarCurso(claveCurso);
-        if (c == null) return "Curso no existe.";
-        
+        if (c == null)
+            return "Curso no existe.";
+
         // Llenar roles si está vacío (lazy initialization)
         if (c.getRoles().isEmpty()) {
-            if (c.getInscritos().isEmpty()) return "No hay estudiantes inscritos para asignar roles.";
+            if (c.getInscritos().isEmpty())
+                return "No hay estudiantes inscritos para asignar roles.";
             for (int i = 0; i < c.getInscritos().size(); i++) {
                 c.getRoles().addLast(c.getInscritos().get(i));
             }
         }
-        
+
         Estudiante asignado = c.siguienteRol();
         if (asignado != null) {
             return "Nuevo Tutor/Líder asignado: " + asignado.getNombreCompleto();

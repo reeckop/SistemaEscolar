@@ -1,4 +1,4 @@
-package sistemaescolar;
+package GUI;
 
 import persistencia.PersistenciaInscripciones;
 import java.util.List;
@@ -15,7 +15,8 @@ public class PanelVerInscritos extends javax.swing.JPanel {
 
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {
         String clave = txtClave.getText().trim();
-        if (clave.isEmpty()) return;
+        if (clave.isEmpty())
+            return;
 
         List<String> lista = pInscripciones.obtenerListaInscritos(clave);
         txtArea.setText("");
@@ -40,32 +41,35 @@ public class PanelVerInscritos extends javax.swing.JPanel {
         jLabel1.setText("Clave del Curso:");
         btnVer.setText("Ver Inscritos");
         btnVer.addActionListener(evt -> btnVerActionPerformed(evt));
-        txtArea.setColumns(20); txtArea.setRows(5);
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
         jScrollPane1.setViewportView(txtArea);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addGap(30,30,30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18,18,18)
-                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18,18,18)
-                        .addComponent(btnVer)))
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
+                .addGroup(layout.createSequentialGroup().addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 120,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnVer)))
+                        .addContainerGap(50, Short.MAX_VALUE)));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup().addGap(30,30,30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1).addComponent(txtClave).addComponent(btnVer))
-                .addGap(18,18,18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
+                .addGroup(layout.createSequentialGroup().addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1).addComponent(txtClave).addComponent(btnVer))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(30, Short.MAX_VALUE)));
     }
+
     private javax.swing.JButton btnVer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

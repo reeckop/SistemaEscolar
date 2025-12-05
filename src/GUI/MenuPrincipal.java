@@ -1,4 +1,4 @@
-package sistemaescolar;
+package GUI;
 
 import entidades.Accion;
 import entidades.Curso;
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
 public class MenuPrincipal extends javax.swing.JFrame {
-    
+
     // --- CONTROLADORES E INSTANCIAS ---
     private PersistenciaEstudiantes pEstudiantes = new PersistenciaEstudiantes();
     private PersistenciaCursos pCursos = new PersistenciaCursos();
@@ -35,56 +35,57 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // --- ACCIONES DE MENÚ ---
-    
+
     // 1. ESTUDIANTES
     private void itemRegistrarEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {
         mostrarPanel(new PanelRegistrarEstudiante(pEstudiantes, pAcciones));
     }
-    
-    private void itemBuscarMatriculaEstudianteActionPerformed(java.awt.event.ActionEvent evt) {                                                            
+
+    private void itemBuscarMatriculaEstudianteActionPerformed(java.awt.event.ActionEvent evt) {
         mostrarPanel(new PanelBuscarEstudiante(pEstudiantes));
-    }  
+    }
 
     // 2. CURSOS
     private void itemAgregarCursoActionPerformed(java.awt.event.ActionEvent evt) {
-        //mostrarPanel(new PanelAgregarCurso(pCursos));
+        mostrarPanel(new PanelAgregarCurso(pCursos));
     }
-    
-    private void itemEliminarCursoActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        mostrarPanel(new PanelEliminarCurso(pCursos));
-    } 
 
-    private void itemListarCursosActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-       // mostrarPanel(new PanelListarCursos(pCursos));
+    private void itemEliminarCursoActionPerformed(java.awt.event.ActionEvent evt) {
+        mostrarPanel(new PanelEliminarCurso(pCursos));
+    }
+
+    private void itemListarCursosActionPerformed(java.awt.event.ActionEvent evt) {
+        mostrarPanel(new PanelListarCursos(pCursos));
     }
 
     // 3. INSCRIPCIONES
-    private void itemInscribirEstudianteCursoActionPerformed(java.awt.event.ActionEvent evt) {                                                             
-        //mostrarPanel(new PanelInscribir(pInscripciones, pAcciones, pEstudiantes, pCursos));
+    private void itemInscribirEstudianteCursoActionPerformed(java.awt.event.ActionEvent evt) {
+        mostrarPanel(new PanelInscribir(pInscripciones, pAcciones, pEstudiantes, pCursos));
     }
 
     private void itemListaInscritosCursoActionPerformed(java.awt.event.ActionEvent evt) {
         mostrarPanel(new PanelVerInscritos(pInscripciones));
     }
-    
-    private void itemListaEsperaCursoActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+
+    private void itemListaEsperaCursoActionPerformed(java.awt.event.ActionEvent evt) {
         mostrarPanel(new PanelListaEspera(pInscripciones));
     }
 
     // 4. CALIFICACIONES
-    private void itemEnviarCalificacionActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        //mostrarPanel(new PanelEnviarCalificacion(pCalificaciones, pEstudiantes));
-    } 
+    private void itemEnviarCalificacionActionPerformed(java.awt.event.ActionEvent evt) {
+        mostrarPanel(new PanelEnviarCalificacion(pCalificaciones, pEstudiantes));
+    }
 
-    private void itemProcesarSiguienteActionPerformed(java.awt.event.ActionEvent evt) {                                                      
-        //mostrarPanel(new PanelProcesarCalificacion(pCalificaciones, pAcciones));
+    private void itemProcesarSiguienteActionPerformed(java.awt.event.ActionEvent evt) {
+        mostrarPanel(new PanelProcesarCalificacion(pCalificaciones, pAcciones));
     }
 
     // 5. ACCIONES (DESHACER) - Lógica directa, no requiere panel
-    private void itemDesahacerActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void itemDesahacerActionPerformed(java.awt.event.ActionEvent evt) {
         Accion ultima = pAcciones.deshacerUltimaAccion();
         if (ultima == null) {
-            JOptionPane.showMessageDialog(this, "La pila de acciones está vacía.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La pila de acciones está vacía.", "Información",
+                    JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -109,11 +110,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             default -> mensaje += "\nEsta acción no es reversible automáticamente.";
         }
         JOptionPane.showMessageDialog(this, mensaje);
-    } 
+    }
 
     // 6. REPORTES
-    private void itemListasrEstudiantesPromedioActionPerformed(java.awt.event.ActionEvent evt) {                                                               
-        //mostrarPanel(new PanelReportePromedios(pEstudiantes));
+    private void itemListasrEstudiantesPromedioActionPerformed(java.awt.event.ActionEvent evt) {
+        mostrarPanel(new PanelReportePromedios(pEstudiantes));
     }
 
     private void itemRotarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,8 +224,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 600, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 400, Short.MAX_VALUE));
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 600, Short.MAX_VALUE));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 400, Short.MAX_VALUE));
 
         pack();
     }
@@ -232,7 +235,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static void main(String args[]) {
         try {
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
         java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
     }
 
