@@ -2,9 +2,9 @@ package entidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
- *
  * @author valeria & Ricardo
  */
 public class Estudiante implements Comparable<Estudiante> {
@@ -25,6 +25,7 @@ public class Estudiante implements Comparable<Estudiante> {
         this.calificaciones = new ArrayList<>();
     }
 
+    // Getters
     public String getMatricula() { return matricula; }
     public String getNombreCompleto() { return nombreCompleto; }
     public List<Double> getCalificaciones() { return calificaciones; }
@@ -41,23 +42,33 @@ public class Estudiante implements Comparable<Estudiante> {
 
     public double promedio() {
         if (calificaciones.isEmpty()) return 0.0;
-        return promedioRecursivo(calificaciones, 0) / calificaciones.size();
-    }
-
-    private double promedioRecursivo(List<Double> lista, int index) {
-        if (index == lista.size()) return 0;
-        return lista.get(index) + promedioRecursivo(lista, index + 1);
+        double suma = 0;
+        for(Double c : calificaciones) suma += c;
+        return suma / calificaciones.size();
     }
 
     @Override
     public String toString() {
-        return "Matricula: " + matricula + " | Nombre: " + nombreCompleto + 
-               " | Prom: " + String.format("%.2f", promedio()) + 
-               " | Califs: " + calificaciones;
+        return String.format("Matricula: %s | Nombre: %s | Prom: %.2f", matricula, nombreCompleto, promedio());
     }
 
     @Override
     public int compareTo(Estudiante o) {
-        return this.matricula.compareTo(o.matricula);
+        // Esto ordena y busca por matrícula alfabéticamente
+        return this.matricula.compareToIgnoreCase(o.matricula);
+    }
+
+    // --- AGREGADO: Esencial para que las busquedas funcionen ---
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Estudiante other = (Estudiante) obj;
+        return Objects.equals(matricula, other.matricula);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matricula);
     }
 }

@@ -1,9 +1,9 @@
 package estructuras;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author valeria & Ricardo
  */
 public class BST<T extends Comparable<T>> {
@@ -31,8 +31,11 @@ public class BST<T extends Comparable<T>> {
 
     private Nodo<T> insertRec(Nodo<T> nodo, T dato) {
         if (nodo == null) return new Nodo<>(dato);
-        if (dato.compareTo(nodo.dato) < 0) nodo.izquierda = insertRec(nodo.izquierda, dato);
-        else if (dato.compareTo(nodo.dato) > 0) nodo.derecha = insertRec(nodo.derecha, dato);
+        // Si es menor va a la izq, si es mayor a la der
+        int cmp = dato.compareTo(nodo.dato);
+        if (cmp < 0) nodo.izquierda = insertRec(nodo.izquierda, dato);
+        else if (cmp > 0) nodo.derecha = insertRec(nodo.derecha, dato);
+        // Si cmp == 0, es duplicado, no hacemos nada (o actualizamos si quisieras)
         return nodo;
     }
 
@@ -42,8 +45,12 @@ public class BST<T extends Comparable<T>> {
     }
 
     private Nodo<T> searchRec(Nodo<T> nodo, T dato) {
-        if (nodo == null || nodo.dato.equals(dato)) return nodo;
-        if (dato.compareTo(nodo.dato) < 0) return searchRec(nodo.izquierda, dato);
+        if (nodo == null) return null;
+        
+        int cmp = dato.compareTo(nodo.dato);
+        
+        if (cmp == 0) return nodo; // ¡Encontrado!
+        if (cmp < 0) return searchRec(nodo.izquierda, dato);
         else return searchRec(nodo.derecha, dato);
     }
 
@@ -54,34 +61,22 @@ public class BST<T extends Comparable<T>> {
     private Nodo<T> deleteRec(Nodo<T> root, T dato) {
         if (root == null) return root;
 
-        if (dato.compareTo(root.dato) < 0)
-            root.izquierda = deleteRec(root.izquierda, dato);
-        else if (dato.compareTo(root.dato) > 0)
-            root.derecha = deleteRec(root.derecha, dato);
+        int cmp = dato.compareTo(root.dato);
+
+        if (cmp < 0) root.izquierda = deleteRec(root.izquierda, dato);
+        else if (cmp > 0) root.derecha = deleteRec(root.derecha, dato);
         else {
-            // Nodo con un solo hijo o sin hijos
+            // Nodo encontrado
             if (root.izquierda == null) return root.derecha;
             else if (root.derecha == null) return root.izquierda;
 
-            // Nodo con dos hijos: obtener sucesor in-order
             root.dato = minValue(root.derecha);
             root.derecha = deleteRec(root.derecha, root.dato);
         }
         return root;
     }
     
-    public void inOrder() {
-        inOrderRec(raiz);
-    }
-
-    private void inOrderRec(Nodo<T> nodo) {
-        if (nodo != null) {
-            inOrderRec(nodo.izquierda);
-            System.out.println(nodo.dato); // Imprime el dato
-            inOrderRec(nodo.derecha);
-        }
-    }
-
+    // Método auxiliar para obtener mínimo
     private T minValue(Nodo<T> root) {
         T minv = root.dato;
         while (root.izquierda != null) {
@@ -105,5 +100,18 @@ public class BST<T extends Comparable<T>> {
         }
     }
     
+    public void inOrder() {
+        if (raiz == null) System.out.println(" (Árbol vacío) ");
+        else inOrderRec(raiz);
+    }
+
+    private void inOrderRec(Nodo<T> nodo) {
+        if (nodo != null) {
+            inOrderRec(nodo.izquierda);
+            System.out.println(nodo.dato);
+            inOrderRec(nodo.derecha);
+        }
+    }
+
     public boolean isEmpty() { return raiz == null; }
 }
