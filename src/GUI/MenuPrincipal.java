@@ -34,7 +34,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.repaint();
     }
 
-    // --- ACCIONES DE MENÚ ---
 
     // 1. ESTUDIANTES
     private void itemRegistrarEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {

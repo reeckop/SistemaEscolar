@@ -2,7 +2,7 @@ package estructuras;
 
 /**
  *
- * @author valeria
+ * @author valeria & Ricardo
  */
 public class ListaDobleCircular<T> {
 
