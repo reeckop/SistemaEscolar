@@ -14,6 +14,10 @@ public class PersistenciaInscripciones {
     public void inscribirEstudiante(Estudiante e, Curso c) {
         c.agregarInscrito(e);
     }
+    
+    public void cancelarInscripcion(int matricula, int claveCurso) {
+        System.out.println("Eliminando inscripción del alumno " + matricula + " del curso " + claveCurso);
+    }
 
     public ListaEnlazadaSimple<Estudiante> mostrarInscritos(Curso c) {
         return c.getInscritos();

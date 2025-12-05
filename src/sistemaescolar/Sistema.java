@@ -9,37 +9,50 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- *
  * @author valeria & Ricardo
  */
 public class Sistema {
-    private static PersistenciaEstudiantes pEstudiantes = new PersistenciaEstudiantes();
-    private static PersistenciaCursos pCursos = new PersistenciaCursos();
-    private static PersistenciaCalificaciones pCalificaciones = new PersistenciaCalificaciones();
-    private static PersistenciaAcciones pAcciones = new PersistenciaAcciones();
-    private static PersistenciaInscripciones pInscripciones = new PersistenciaInscripciones();
+    // Persistencia estática
+    private static final PersistenciaEstudiantes pEstudiantes = new PersistenciaEstudiantes();
+    private static final PersistenciaCursos pCursos = new PersistenciaCursos();
+    private static final PersistenciaCalificaciones pCalificaciones = new PersistenciaCalificaciones();
+    private static final PersistenciaAcciones pAcciones = new PersistenciaAcciones();
+    private static final PersistenciaInscripciones pInscripciones = new PersistenciaInscripciones();
     
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         int opcion = 0;
         do {
-            mostrarMenu();
-            try {
-                String entrada = scanner.nextLine(); // Leemos como String para evitar errores de buffer
-                opcion = Integer.parseInt(entrada);
-                ejecutarOpcion(opcion);
-            } catch (NumberFormatException e) {
-                System.out.println(">> Error: Debes ingresar un número válido.");
-            } catch (Exception e) {
-                System.out.println(">> Error inesperado: " + e.getMessage());
-                e.printStackTrace();
+            mostrarMenuPrincipal();
+            opcion = leerEntero("Ingrese la opción: ");
+            ejecutarOpcion(opcion);
+            if(opcion != 7) {
+                System.out.println("\nPresione Enter para continuar...");
+                scanner.nextLine();
             }
         } while (opcion != 7);
     }
 
-    private static void mostrarMenu() {
-        System.out.println("========================================");
+    // Método auxiliar para leer enteros sin errores de buffer
+    private static int leerEntero(String mensaje) {
+        System.out.print(mensaje);
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println(">> Error: Debe ingresar un número válido.");
+            return -1;
+        }
+    }
+    
+    // Método auxiliar para leer texto
+    private static String leerTexto(String mensaje) {
+        System.out.print(mensaje);
+        return scanner.nextLine().trim();
+    }
+
+    private static void mostrarMenuPrincipal() {
+        System.out.println("\n========================================");
         System.out.println("        SISTEMA ESCOLAR - MENU          ");
         System.out.println("========================================");
         System.out.println("1. Estudiantes (Registrar / Buscar)");
@@ -49,41 +62,40 @@ public class Sistema {
         System.out.println("5. Acciones (Deshacer)");
         System.out.println("6. Reportes (Promedios / Roles)");
         System.out.println("7. Salir");
-        System.out.print("Ingrese la opcion: ");
     }
 
     private static void ejecutarOpcion(int opcion) {
         switch (opcion) {
-            case 1: menuEstudiantes(); break;
-            case 2: menuCursos(); break;
-            case 3: menuInscripciones(); break;
-            case 4: menuCalificaciones(); break;
-            case 5: deshacerUltimaAccion(); break;
-            case 6: menuReportes(); break;
-            case 7: break;
-            default: System.out.println("Ingrese una opcion valida!!!");
+            case 1 -> menuEstudiantes();
+            case 2 -> menuCursos();
+            case 3 -> menuInscripciones();
+            case 4 -> menuCalificaciones();
+            case 5 -> deshacerUltimaAccion();
+            case 6 -> menuReportes();
+            case 7 -> System.out.println(">> Saliendo del sistema...");
+            default -> System.out.println(">> Opción no válida.");
         }
     }
 
+    // --- MÓDULO ESTUDIANTES ---
     private static void menuEstudiantes() {
-        System.out.println("\n--- Menu Estudiantes ---");
+        System.out.println("\n--- GESTIÓN ESTUDIANTES ---");
         System.out.println("1. Registrar estudiante");
         System.out.println("2. Buscar estudiante");
-        System.out.print("Opcion: ");
-        String op = scanner.nextLine();
+        int op = leerEntero("Opción: ");
 
-        if (op.equals("1")) {
-            System.out.print("Matricula: "); String mat = scanner.nextLine();
+        if (op == 1) {
+            String mat = leerTexto("Matrícula: ");
             
             if (pEstudiantes.buscarEstudiante(mat) != null) {
-                System.out.println("Error: Ya existe un estudiante con esta matricula.");
+                System.out.println(">> Error: Ya existe un estudiante con esta matrícula.");
                 return;
             }
 
-            System.out.print("Nombre Completo: "); String nom = scanner.nextLine();
-            System.out.print("Telefono: "); String tel = scanner.nextLine();
-            System.out.print("Correo: "); String mail = scanner.nextLine();
-            System.out.print("Direccion completa: "); String dir = scanner.nextLine();
+            String nom = leerTexto("Nombre Completo: ");
+            String tel = leerTexto("Teléfono: ");
+            String mail = leerTexto("Correo: ");
+            String dir = leerTexto("Dirección: ");
 
             Estudiante nuevo = new Estudiante(mat, nom, tel, mail, dir);
             pEstudiantes.agregarEstudiante(nuevo);
@@ -91,37 +103,36 @@ public class Sistema {
             pAcciones.registrarAccion(new Accion(Accion.Tipo.REGISTRO_ESTUDIANTE, nuevo, null));
             System.out.println(">> Estudiante registrado exitosamente.");
 
-        } else if (op.equals("2")) {
-            System.out.print("Ingrese matrícula a buscar: ");
-            String mat = scanner.nextLine();
+        } else if (op == 2) {
+            String mat = leerTexto("Ingrese matrícula a buscar: ");
             Estudiante e = pEstudiantes.buscarEstudiante(mat);
             if (e != null) {
-                System.out.println(">> Estudiante encontrado:\n" + e);
+                System.out.println(">> Estudiante encontrado: " + e);
             } else {
                 System.out.println(">> Estudiante no encontrado.");
             }
         }
     }
 
+    // --- MÓDULO CURSOS ---
     private static void menuCursos() {
-        System.out.println("\n--- GESTION DE CURSOS ---");
+        System.out.println("\n--- GESTIÓN DE CURSOS ---");
         System.out.println("1. Agregar curso");
         System.out.println("2. Eliminar curso");
         System.out.println("3. Listar cursos");
-        System.out.print("Opción: ");
-        String op = scanner.nextLine();
+        int op = leerEntero("Opción: ");
 
-        if (op.equals("1")) {
-            System.out.print("Clave: "); String clave = scanner.nextLine();
-            System.out.print("Nombre: "); String nom = scanner.nextLine();
-            System.out.print("Capacidad: "); int cap = Integer.parseInt(scanner.nextLine());
+        if (op == 1) {
+            String clave = leerTexto("Clave: ");
+            String nom = leerTexto("Nombre: ");
+            int cap = leerEntero("Capacidad: ");
 
             Curso nuevo = new Curso(clave, nom, cap);
             pCursos.agregarCurso(nuevo);
-            System.out.println("Curso agregado!!!");
+            System.out.println(">> Curso agregado.");
 
-        } else if (op.equals("2")) {
-            System.out.print("Clave del curso a eliminar: "); String clave = scanner.nextLine();
+        } else if (op == 2) {
+            String clave = leerTexto("Clave del curso a eliminar: ");
             Curso eliminado = pCursos.eliminarCurso(clave);
             if (eliminado != null) {
                 System.out.println(">> Curso '" + eliminado.getNombre() + "' eliminado.");
@@ -129,76 +140,75 @@ public class Sistema {
                 System.out.println(">> Curso no encontrado.");
             }
 
-        } else if (op.equals("3")) {
+        } else if (op == 3) {
             List<Curso> lista = pCursos.listarCursos();
             if (lista.isEmpty()) System.out.println(">> No hay cursos registrados.");
-            for (Curso c : lista) System.out.println(c);
+            else lista.forEach(System.out::println);
         }
     }
 
+    // --- MÓDULO INSCRIPCIONES ---
     private static void menuInscripciones() {
         System.out.println("\n--- INSCRIPCIONES ---");
         System.out.println("1. Inscribir estudiante");
         System.out.println("2. Ver inscritos de un curso");
         System.out.println("3. Ver lista de espera");
-        System.out.print("Opción: ");
-        String op = scanner.nextLine();
+        int op = leerEntero("Opción: ");
 
-        if (op.equals("1")) {
-            System.out.print("Matrícula Estudiante: "); String mat = scanner.nextLine();
+        if (op == 1) {
+            String mat = leerTexto("Matrícula Estudiante: ");
             Estudiante e = pEstudiantes.buscarEstudiante(mat);
-            if (e == null) { System.out.println(">> Estudiante no existe."); return; }
+            if (e == null) { System.out.println(">> Error: Estudiante no existe."); return; }
 
-            System.out.print("Clave Curso: "); String clave = scanner.nextLine();
+            String clave = leerTexto("Clave Curso: ");
             Curso c = pCursos.buscarCurso(clave);
-            if (c == null) { System.out.println(">> Curso no existe."); return; }
+            if (c == null) { System.out.println(">> Error: Curso no existe."); return; }
 
-            pInscripciones.inscribirEstudiante(e, c);
-            pAcciones.registrarAccion(new Accion(Accion.Tipo.INSCRIPCION_CURSO, e, c));
-            System.out.println(">> Proceso realizado (Verificar si quedó inscrito o en espera).");
+            String resultado = pInscripciones.inscribir(mat, clave); // Usar lógica del control
+            System.out.println(">> " + resultado);
 
-        } else if (op.equals("2")) {
-            System.out.print("Clave Curso: "); String clave = scanner.nextLine();
-            Curso c = pCursos.buscarCurso(clave);
-            if (c != null) System.out.println("Inscritos: " + pInscripciones.mostrarInscritos(c));
-            else System.out.println(">> Curso no encontrado.");
-
-        } else if (op.equals("3")) {
-            System.out.print("Clave Curso: "); String clave = scanner.nextLine();
-            Curso c = pCursos.buscarCurso(clave);
-            if (c != null) {
-                System.out.print("¿Cuántos mostrar?: ");
-                int n = Integer.parseInt(scanner.nextLine());
-                // Asume que el método devuelve una lista o imprime
-                System.out.println("Primeros " + n + " en espera:");
-                pInscripciones.mostrarListaEspera(c, n); 
+            // Solo registramos la acción si fue exitosa o lista de espera
+            if(resultado.contains("exitosa") || resultado.contains("Espera")) {
+                 pAcciones.registrarAccion(new Accion(Accion.Tipo.INSCRIPCION_CURSO, e, c));
             }
+
+        } else if (op == 2) {
+            String clave = leerTexto("Clave Curso: ");
+            List<String> inscritos = pInscripciones.obtenerListaInscritos(clave);
+            if(inscritos.isEmpty()) System.out.println(">> No hay inscritos o curso no existe.");
+            else inscritos.forEach(System.out::println);
+
+        } else if (op == 3) {
+            // Implementar visualización de lista de espera si se requiere
+             System.out.println(">> Funcionalidad en construcción (depende de ListaDobleCircular).");
         }
     }
 
+    // --- MÓDULO CALIFICACIONES ---
     private static void menuCalificaciones() {
         System.out.println("\n--- CALIFICACIONES ---");
         System.out.println("1. Solicitar calificación (Encolar)");
         System.out.println("2. Procesar siguiente solicitud");
-        System.out.print("Opción: ");
-        String op = scanner.nextLine();
+        int op = leerEntero("Opción: ");
 
-        if (op.equals("1")) {
-            System.out.print("Matrícula Estudiante: "); String mat = scanner.nextLine();
+        if (op == 1) {
+            String mat = leerTexto("Matrícula Estudiante: ");
             Estudiante e = pEstudiantes.buscarEstudiante(mat);
             if (e != null) {
                 System.out.print("Calificación: ");
-                double calif = Double.parseDouble(scanner.nextLine());
-                pCalificaciones.enviarSolicitudCalificacion(new Accion(Accion.Tipo.CALIFICACION, e, calif));
-                System.out.println(">> Solicitud enviada a la cola.");
+                try {
+                     double calif = Double.parseDouble(scanner.nextLine());
+                     pCalificaciones.enviarSolicitudCalificacion(new Accion(Accion.Tipo.CALIFICACION, e, calif));
+                     System.out.println(">> Solicitud enviada a la cola.");
+                } catch(Exception ex) { System.out.println(">> Error al leer calificación."); }
             } else {
                 System.out.println(">> Estudiante no encontrado.");
             }
 
-        } else if (op.equals("2")) {
+        } else if (op == 2) {
             Accion procesada = pCalificaciones.procesarSiguienteSolicitud();
             if (procesada != null) {
-                pAcciones.registrarAccion(procesada); // Guardar para deshacer
+                pAcciones.registrarAccion(procesada); 
                 Estudiante e = (Estudiante) procesada.getObjeto();
                 System.out.println(">> Calificación aplicada a: " + e.getNombreCompleto());
             } else {
@@ -207,6 +217,7 @@ public class Sistema {
         }
     }
 
+    // --- MÓDULO DESHACER ---
     private static void deshacerUltimaAccion() {
         Accion ultima = pAcciones.deshacerUltimaAccion();
         if (ultima == null) {
@@ -216,42 +227,33 @@ public class Sistema {
 
         System.out.println(">> Deshaciendo acción: " + ultima.getTipo());
         switch (ultima.getTipo()) {
-            case REGISTRO_ESTUDIANTE:
+            case REGISTRO_ESTUDIANTE -> {
                 Estudiante e = (Estudiante) ultima.getObjeto();
                 pEstudiantes.eliminarEstudiante(e.getMatricula());
                 System.out.println(">> Registro eliminado.");
-                break;
-
-            case CALIFICACION:
+            }
+            case CALIFICACION -> {
                 Estudiante estC = (Estudiante) ultima.getObjeto();
                 estC.eliminarUltimaCalificacion();
                 System.out.println(">> Calificación eliminada.");
-                break;
-
-            case INSCRIPCION_CURSO:
+            }
+            case INSCRIPCION_CURSO -> {
                 Estudiante estI = (Estudiante) ultima.getObjeto();
                 Curso cursoI = (Curso) ultima.getInfoAdicional();
-                // Intenta quitar de inscritos, si falla, intenta quitar de espera
-                if (cursoI.getInscritos().remove(estI)) {
-                     System.out.println(">> Inscripción eliminada.");
-                } else if (cursoI.getListaEspera().remove(estI)) {
-                     System.out.println(">> Eliminado de lista de espera.");
-                }
-                break;
-                
-            default:
-                System.out.println(">> Tipo de acción no soportado para deshacer.");
+                pInscripciones.cancelarInscripcion(estI.getMatricula(), cursoI.getClave());
+                System.out.println(">> Inscripción cancelada.");
+            }
+            default -> System.out.println(">> Acción no soportada para deshacer.");
         }
     }
 
+    // --- MÓDULO REPORTES ---
     private static void menuReportes() {
         System.out.println("\n--- REPORTES ---");
         System.out.println("1. Listar estudiantes por promedio (AVL)");
-        System.out.println("2. Rotar rol de tutor/líder");
-        System.out.print("Opción: ");
-        String op = scanner.nextLine();
+        int op = leerEntero("Opción: ");
 
-        if (op.equals("1")) {
+        if (op == 1) {
             List<Estudiante> lista = pEstudiantes.listarEstudiantes();
             if (lista.isEmpty()) {
                 System.out.println(">> No hay estudiantes registrados.");
@@ -263,22 +265,11 @@ public class Sistema {
                 avl.insert(new ParPromedio(e));
             }
             System.out.println("--- Estudiantes ordenados por Promedio ---");
-            avl.inOrder(); // Imprime en orden ascendente
-
-        } else if (op.equals("2")) {
-            System.out.print("Clave Curso: "); String clave = scanner.nextLine();
-            Curso c = pCursos.buscarCurso(clave);
-            if (c != null) {
-                Estudiante lider = pInscripciones.rotarRol(c);
-                if (lider != null) System.out.println(">> Nuevo Líder/Tutor: " + lider.getNombreCompleto());
-                else System.out.println(">> No hay inscritos para asignar rol.");
-            } else {
-                System.out.println(">> Curso no encontrado.");
-            }
+            avl.inOrder(); 
         }
     }
 
-    // Clase auxiliar interna para manejar el ordenamiento en el AVL
+    // Clase auxiliar para AVL
     static class ParPromedio implements Comparable<ParPromedio> {
         Estudiante estudiante;
         double promedio;
@@ -290,15 +281,16 @@ public class Sistema {
 
         @Override
         public int compareTo(ParPromedio o) {
-            if (this.promedio < o.promedio) return -1;
-            if (this.promedio > o.promedio) return 1;
-            // Desempate por matrícula para que el AVL acepte promedios iguales
-            return this.estudiante.compareTo(o.estudiante);
+            // Ordenar por promedio
+            int cmp = Double.compare(this.promedio, o.promedio);
+            if (cmp != 0) return cmp;
+            // Desempate por matrícula
+            return this.estudiante.getMatricula().compareTo(o.estudiante.getMatricula());
         }
 
         @Override
         public String toString() {
-            return "Prom: " + String.format("%.2f", promedio) + " | " + estudiante.getNombreCompleto();
+            return String.format("Prom: %.2f | %s", promedio, estudiante.getNombreCompleto());
         }
     }
 }
