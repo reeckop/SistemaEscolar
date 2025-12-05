@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/Sistema.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/wowwpw.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/SistemaConsola.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/PanelRegistrarEstudiante.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/PanelBuscarEstudiante.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/MenuPrincipal.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/PanelEliminarCurso.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/PanelVerInscritos.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/PanelListaEspera.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/PanelReportePromedios.java</file>
+            <file>file:/C:/Users/Ricardo/Documents/NetBeansProjects/SistemaEscolar/src/sistemaescolar/PanelRotarRol.java</file>
         </group>
     </open-files>
 </project-private>

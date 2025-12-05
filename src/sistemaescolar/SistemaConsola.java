@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Clase principal que gestiona el menú de consola.
- * Cumple con los requisitos del PDF (ITSON Estructura de Datos).
+ *
+ * @author Ricardo
  */
-public class Sistema {
+public class SistemaConsola {
     
     // Instancias de persistencia (Controladores)
     private static final PersistenciaEstudiantes pEstudiantes = new PersistenciaEstudiantes();
@@ -56,9 +56,9 @@ public class Sistema {
     }
 
     private static void mostrarMenuPrincipal() {
-        System.out.println("\n========================================");
-        System.out.println("        SISTEMA ESCOLAR - ITSON         ");
-        System.out.println("========================================");
+        System.out.println("----------------------------------------");
+        System.out.println("              SISTEMA ESCOLAR");
+        System.out.println("----------------------------------------");
         System.out.println("1. Estudiantes (Registrar / Buscar)");
         System.out.println("2. Cursos (Agregar / Eliminar / Listar)");
         System.out.println("3. Inscripciones (Inscribir / Ver / Espera)");

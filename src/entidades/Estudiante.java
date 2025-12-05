@@ -54,11 +54,9 @@ public class Estudiante implements Comparable<Estudiante> {
 
     @Override
     public int compareTo(Estudiante o) {
-        // Esto ordena y busca por matrícula alfabéticamente
         return this.matricula.compareToIgnoreCase(o.matricula);
     }
 
-    // --- AGREGADO: Esencial para que las busquedas funcionen ---
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -70,5 +68,13 @@ public class Estudiante implements Comparable<Estudiante> {
     @Override
     public int hashCode() {
         return Objects.hash(matricula);
+    }
+
+    public String getTelefono() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getCorreo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
